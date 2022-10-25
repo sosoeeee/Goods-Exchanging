@@ -280,7 +280,7 @@ class waitDeleteThread(QThread):
 
 
 if __name__ == "__main__":
-    myClient = pymongo.MongoClient('mongodb://localhost:27017/')
+    myClient = pymongo.MongoClient('mongodb://localhost:27777/')
     mydb = myClient['Test']
     myCollection = mydb['Objs']
 
