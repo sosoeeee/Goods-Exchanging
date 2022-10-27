@@ -10,5 +10,5 @@
 
 - GoodsChange文件夹为运行代码的虚拟环境，python版本为python3.9，如需在虚拟环境下运行main.py，请先在命令行窗口中中使用`GoodsChange\Scripts\activate` 激活虚拟环境。
 
-- 或者在 `dist` 文件夹中直接运行 `main.exe` 文件
+- 或者在 `dist` 文件夹中直接运行 `GoodsExchange.exe` 文件
 
