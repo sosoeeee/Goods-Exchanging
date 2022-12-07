@@ -1,4 +1,5 @@
 #/code/*.ui
+/build/
 /.idea/
 /code/__pycache__/
 /__pycache__/
