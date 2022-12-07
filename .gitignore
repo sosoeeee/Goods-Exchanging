@@ -1,4 +1,4 @@
-/code/*.ui
+#/code/*.ui
 /.idea/
 /code/__pycache__/
 /__pycache__/
