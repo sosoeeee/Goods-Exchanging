@@ -548,6 +548,7 @@ class WindowCtl:
 
 if __name__ == "__main__":
     myClient = pymongo.MongoClient('mongodb://localhost:27017/')
+    # myClient = pymongo.MongoClient(host='120.241.144.224', port=26214)  # 内网渗透运行
     mydb = myClient['Test']
     objCollection = mydb['Objs']
     clientCollection = mydb['Clients']
