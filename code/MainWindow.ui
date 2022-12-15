@@ -36,35 +36,6 @@
      <property name="verticalSpacing">
       <number>15</number>
      </property>
-     <item row="0" column="2">
-      <widget class="QLineEdit" name="lineEdit"/>
-     </item>
-     <item row="0" column="0">
-      <widget class="QComboBox" name="comboBox"/>
-     </item>
-     <item row="2" column="3">
-      <widget class="QPushButton" name="Upload">
-       <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;Adobe Heiti Std&quot;;</string>
-       </property>
-       <property name="text">
-        <string>添加物品</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" colspan="4">
-      <widget class="QTableWidget" name="tableWidget"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label">
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Adobe Heiti Std&quot;;</string>
-       </property>
-       <property name="text">
-        <string>关键词</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="3">
       <widget class="QPushButton" name="Search">
        <property name="layoutDirection">
@@ -77,6 +48,12 @@
         <string>查找</string>
        </property>
       </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QComboBox" name="comboBox"/>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLineEdit" name="lineEdit"/>
      </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="manage">
@@ -91,12 +68,35 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Adobe Heiti Std&quot;;</string>
+       </property>
+       <property name="text">
+        <string>关键词</string>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="1" colspan="2">
       <widget class="QLabel" name="hint">
        <property name="text">
         <string>[提示信息]</string>
        </property>
       </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QPushButton" name="Upload">
+       <property name="styleSheet">
+        <string notr="true">font: 12pt &quot;Adobe Heiti Std&quot;;</string>
+       </property>
+       <property name="text">
+        <string>添加物品</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="4">
+      <widget class="QTableWidget" name="tableWidget"/>
      </item>
     </layout>
    </widget>
@@ -169,8 +169,20 @@
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>用户</string>
+    </property>
+    <addaction name="MenuLogout"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="MenuLogout">
+   <property name="text">
+    <string>Logout</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

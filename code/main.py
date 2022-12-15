@@ -145,6 +145,7 @@ class RegisWindow(QMainWindow, Ui_RegisWindow):
 
         return True, 'Bingo!'
 
+
 class RegisSuccess(QMainWindow, Ui_RegisSuccess):
     def __init__(self, parent=None):
         # 继承父类响应的函数，在此为初始化函数
@@ -211,6 +212,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.init_table()
         self.init_combobox()
         self.hint.setText("左键任意记录可显示详细信息, 右键可删除用户自己上传的记录")
+        # 添加菜单栏操作
+        userMenu = self.menubar.addMenu("用户")
+        self.Logout = QAction(self)
+        self.Logout.setText('注销')
+        userMenu.addAction(self.Logout)
 
     def init_table(self):
         table = self.tableWidget
@@ -259,6 +265,7 @@ class WindowCtl:
         self.mainWindow.tableWidget.customContextMenuRequested.connect(self.generateTableMenu)  # 绑定右键事件
         self.mainWindow.comboBox.currentIndexChanged.connect(self.comboBoxSelectionChange)
         self.mainWindow.manage.clicked.connect(self.manageInfo)
+        self.mainWindow.Logout.triggered.connect(self.logout)
 
         self.uploadWindow.Confirm.clicked.connect(self.uploadConfirm)
         self.uploadWindow.Cancel.clicked.connect(self.uploadCancel)
@@ -374,6 +381,7 @@ class WindowCtl:
                     self.mainWindow.username.setText(user['username'])
                     self.loginWindow.hide()
                     self.mainWindow.show()
+                    self.mainWindow.menubar.show()
                     self.CurrentClient = user
             else:
                 self.loginWindow.hint.setText('用户名或密码错误')
@@ -382,6 +390,7 @@ class WindowCtl:
 
     def register(self):
         self.regisWindow.show()
+        self.regisWindow.hint.setText("密码请至少包含数字和英文，长度6-20~")
 
     def clearRegisInformation(self):
         self.regisWindow.name.setText("")
@@ -512,6 +521,14 @@ class WindowCtl:
         else:
             return
 
+    def logout(self):
+        self.mainWindow.hide()
+        self.mainWindow.manage.hide()
+        self.loginWindow.logPassword.clear()
+        self.loginWindow.logName.clear()
+        self.loginWindow.hint.clear()
+        self.loginWindow.show()
+
     def showDetail(self, index):
         _id = self.CurrentTableRecordsID[index.row()]
         myquery = {"_id": _id}
@@ -600,7 +617,7 @@ class WindowCtl:
         myquery = {"_id": _id}
         obj = objCollection.find_one(myquery)
 
-        if obj['phone'] == self.CurrentClient['phone'] or self.CurrentClient['name'] == 'admin':
+        if obj['phone'] == self.CurrentClient['phone'] or self.CurrentClient['username'] == 'admin':
             removeObj(_id)
 
             # print('delete')
@@ -614,8 +631,8 @@ class WindowCtl:
 
 
 if __name__ == "__main__":
-    # myClient = pymongo.MongoClient('mongodb://localhost:27017/')
-    myClient = pymongo.MongoClient(host='45.125.46.201', port=23209)  # 内网渗透运行45.125.46.201:23209
+    myClient = pymongo.MongoClient('mongodb://localhost:27017/')
+    # myClient = pymongo.MongoClient(host='45.125.46.201', port=23209)  # 内网渗透运行45.125.46.201:23209
     mydb = myClient['Test']
     objCollection = mydb['Objs']
     clientCollection = mydb['Clients']
