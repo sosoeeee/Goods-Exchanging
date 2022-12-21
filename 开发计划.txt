@@ -52,4 +52,4 @@ Version 2.0
 3. 更新物品信息显示窗口，添加详细信息显示窗口，更新物品添加窗口，更新物品删除判定
 4. 完善关键字查询功能
 
-
+pyinstaller -F -w -i favicon.ico .\code\main.py

@@ -30,7 +30,7 @@ def insertClient(record):
     clientCollection.insert_one(record)
 
 
-def findUser_name(username):
+def queryByUserName(username):
     myquery = {"username": username}
     users = clientCollection.find(myquery)
     for user in users:
@@ -39,7 +39,7 @@ def findUser_name(username):
     return None
 
 
-def findUser_status(status):
+def queryByUserStatus(status):
     myquery = {"isChecked": status}
     users = clientCollection.find(myquery)
     userSet = []
@@ -61,7 +61,7 @@ def updateSorts():
     print(Sorts)
 
 
-def findSort(name):
+def queryBySortName(name):
     myquery = {"name": name}
     sorts = sortCollection.find(myquery)
     for sort in sorts:
@@ -185,8 +185,8 @@ class ManageWindow(QMainWindow, Ui_Console):
         passList = self.passedUsers
         notpassList = self.notPassUsers
 
-        passUsers = findUser_status(1)
-        notpassUsers = findUser_status(0)
+        passUsers = queryByUserStatus(1)
+        notpassUsers = queryByUserStatus(0)
 
         if passUsers is None:
             passList.clear()
@@ -291,7 +291,7 @@ class WindowCtl:
             self.manageWindow.hint.setText("请输入完整的类别信息")
             return
 
-        if findSort(name) is None:
+        if queryBySortName(name) is None:
             one_sort = {
                 "name": name, "info": info
             }
@@ -321,7 +321,7 @@ class WindowCtl:
         name = self.manageWindow.sortsBox.currentText()
         # 防止combox在clear时触发错误
         if name != '':
-            sort = findSort(name)
+            sort = queryBySortName(name)
 
             self.manageWindow.sortName.setText(sort['name'])
             self.manageWindow.sortInfo.setText(sort['info'])
@@ -369,7 +369,7 @@ class WindowCtl:
             self.loginWindow.hint.setText("请先将信息填写完整")
             return
 
-        user = findUser_name(username)
+        user = queryByUserName(username)
 
         if user is not None:
             if password == user["password"]:
@@ -422,7 +422,7 @@ class WindowCtl:
             self.regisWindow.hint.setText(err)
             return
 
-        user = findUser_name(username)
+        user = queryByUserName(username)
 
         if user is not None:
             self.regisWindow.hint.setText("该用户名已被使用")
@@ -536,7 +536,7 @@ class WindowCtl:
         infoSet = obj['info'].split(';')  # 获取物品详细信息
 
         currentSort = obj['sort']
-        sort = findSort(currentSort)
+        sort = queryBySortName(currentSort)
         sortInfoSet = sort['info'].split(';')  # 该种类物品的详细信息
 
         detailInfo = obj['name'] + ' '
@@ -567,14 +567,14 @@ class WindowCtl:
 
         sortName = self.uploadWindow.comboBox.currentText()
         if sortName != '':
-            sort = findSort(sortName)
+            sort = queryBySortName(sortName)
             self.uploadWindow.info.setPlaceholderText(sort['info'])
 
     def updateUploadInfo(self):
         sortName = self.uploadWindow.comboBox.currentText()
 
         if sortName != '':
-            sort = findSort(sortName)
+            sort = queryBySortName(sortName)
             self.uploadWindow.hint.setText('详细信息为 [%s] \n详细信息之间为英文分号(;)\n结尾不用加分号哦(● ◡ ●)' % sort['info'])
             self.uploadWindow.info.setPlaceholderText(sort['info'])
 
@@ -631,8 +631,8 @@ class WindowCtl:
 
 
 if __name__ == "__main__":
-    myClient = pymongo.MongoClient('mongodb://localhost:27017/')
-    # myClient = pymongo.MongoClient(host='45.125.46.201', port=23209)  # 内网渗透运行45.125.46.201:23209
+    # myClient = pymongo.MongoClient('mongodb://localhost:27017/')
+    myClient = pymongo.MongoClient(host='45.125.46.201', port=23209)  # 内网渗透运行45.125.46.201:23209
     mydb = myClient['Test']
     objCollection = mydb['Objs']
     clientCollection = mydb['Clients']
