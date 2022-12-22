@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QRegExpValidator
 from MainWindow import Ui_MainWindow
-from UploadWindow import Ui_Form
+from UploadWindow import Ui_Upload
 from RegisWindow import Ui_RegisWindow
 from LogWindow import Ui_Login
 from RegisSuccess import Ui_RegisSuccess
@@ -89,7 +89,7 @@ class DropInList(QListWidget):
         self.setDefaultDropAction(Qt.MoveAction)  # 设置拖放模式为移动
 
 
-class UploadWindow(QMainWindow, Ui_Form):
+class UploadWindow(QMainWindow, Ui_Upload):
     def __init__(self, parent=None):
         # 继承父类响应的函数，在此为初始化函数
         super(UploadWindow, self).__init__(parent)
@@ -208,7 +208,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 继承父类响应的函数，在此为初始化函数
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
-        # 初始化按钮与Slot的通信
+        # 初始化
         self.init_table()
         self.init_combobox()
         self.hint.setText("左键任意记录可显示详细信息, 右键可删除用户自己上传的记录")
@@ -631,8 +631,8 @@ class WindowCtl:
 
 
 if __name__ == "__main__":
-    # myClient = pymongo.MongoClient('mongodb://localhost:27017/')
-    myClient = pymongo.MongoClient(host='45.125.46.201', port=23209)  # 内网渗透运行45.125.46.201:23209
+    myClient = pymongo.MongoClient('mongodb://localhost:27017/')
+    # myClient = pymongo.MongoClient(host='45.125.46.201', port=23209)  # 内网渗透运行45.125.46.201:23209
     mydb = myClient['Test']
     objCollection = mydb['Objs']
     clientCollection = mydb['Clients']
